@@ -1,22 +1,35 @@
-const forceDatabaseRefresh = false;
-
 import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import routes from './routes/index.js';
 import { sequelize } from './models/index.js';
+
+// Set up __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Serves static files in the entire client's dist folder
-app.use(express.static('../client/dist'));
+// Build the absolute path to your client's build folder
+const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
+
+// Serve static files from the client build folder
+app.use(express.static(clientBuildPath));
 
 app.use(express.json());
 app.use(routes);
 
-sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
+// Fallback: for any route not handled by your API or static files,
+// send back index.html (this is important for client-side routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
+
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
