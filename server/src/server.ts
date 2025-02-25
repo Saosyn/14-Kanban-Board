@@ -8,15 +8,17 @@ import { sequelize } from './models/index.js';
 
 const app = express();
 
-// Use process.cwd() to get the current working directory (project root)
-// and build the path to your client build folder.
-const clientBuildPath = path.join(process.cwd(), 'client', 'dist');
+// Calculate the client build path.
+// Since process.cwd() is `/opt/render/project/src/server`,
+// going up two levels (.., ..) moves to `/opt/render/project`,
+// then into `client/dist`.
+const clientBuildPath = path.join(process.cwd(), '..', '..', 'client', 'dist');
 
 app.use(express.static(clientBuildPath));
 app.use(express.json());
 app.use(routes);
 
-// Fallback: serve index.html for unmatched routes (for client-side routing)
+// Fallback: serve index.html for any unmatched routes (for client-side routing)
 app.get('*', (_req, res) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
