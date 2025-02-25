@@ -5,11 +5,12 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "postinstall": "npm rebuild bcrypt --build-from-source",
     "build": "npx tsc",
+    "seed": "node dist/seeds/index.js",
     "start": "npm run build && npm run seed && node dist/server.js --ignore client",
     "dev": "npx nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node dist/seeds/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
     "watch": [
