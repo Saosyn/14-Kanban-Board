@@ -17,23 +17,23 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Board />,
-      },
+        element: <Board />
+      }, 
       {
         path: '/edit',
-        element: <EditTicket />,
+        element: <EditTicket />
       },
       {
         path: '/create',
-        element: <CreateTicket />,
+        element: <CreateTicket />
       },
       {
         path: '/login',
-        element: <Login />,
-      },
-    ],
-  },
-]);
+        element: <Login />
+      }
+    ]
+  }
+])
 
 const rootElement = document.getElementById('root');
 if (rootElement) {

@@ -5,18 +5,14 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "render-build": "npm install && cd ../client && npm install && npm run build && ls -la dist && cd ../server && npm run build",
-    "postinstall": "npm rebuild bcrypt --build-from-source --unsafe-perm",
     "build": "npx tsc",
-    "seed": "node dist/seeds/index.js",
-    "start": "npm run build && npm run seed && node dist/server.js",
+    "start": "npm run build && node dist/server.js --ignore client",
     "dev": "npx nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node dist/seeds/index.js"
   },
   "nodemonConfig": {
-    "watch": [
-      "src"
-    ],
+    "watch": ["src"],
     "ext": "ts,json,js",
     "exec": "npx tsc && node dist/server.js"
   },
@@ -24,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
