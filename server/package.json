@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "postinstall": "npm rebuild bcrypt --build-from-source --unsafe-perm",
     "render-build": "npm install && npm run client:build && npm run build",
+    "postinstall": "npm rebuild bcrypt --build-from-source --unsafe-perm",
     "build": "npx tsc",
     "seed": "node dist/seeds/index.js",
     "start": "npm run build && npm run seed && node dist/server.js",
