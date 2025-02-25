@@ -25,7 +25,7 @@ app.use(routes);
 
 // Fallback: for any route not handled by your API or static files,
 // send back index.html (this is important for client-side routing)
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
   res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
